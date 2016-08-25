@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="504.0" prefWidth="749.0" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <MenuBar>
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem fx:id="openFileItem" mnemonicParsing="false" onAction="#openFile" text="Open"/>
+                <MenuItem fx:id="saveFileItem" mnemonicParsing="false" text="Save"/>
+                <MenuItem fx:id="exitButtonMenu" mnemonicParsing="false" text="Exit"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="About"/>
+            </Menu>
+        </MenuBar>
+        <HBox fx:id="pathPanell" alignment="CENTER_LEFT" maxHeight="26.0" minHeight="26.0" prefHeight="26.0"
+              prefWidth="705.0" VBox.vgrow="NEVER">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <padding>
+                <Insets left="5.0"/>
+            </padding>
+        </HBox>
+        <Separator prefWidth="200.0"/>
+        <HBox fx:id="editPanel" alignment="CENTER" maxHeight="40.0" minHeight="40.0" prefHeight="100.0"
+              prefWidth="40.0" spacing="5.0" VBox.vgrow="NEVER">
+            <padding>
+                <Insets left="5.0" right="5.0"/>
+            </padding>
+            <TextField editable="false" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="120.0"
+                       HBox.hgrow="NEVER"/>
+            <TextField editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
+            <TextField editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
+            <ComboBox maxWidth="60.0" minWidth="40.0" prefHeight="25.0" prefWidth="60.0"/>
+            <ComboBox prefHeight="25.0" prefWidth="60.0"/>
+            <TextField maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0"
+                       HBox.hgrow="ALWAYS"/>
+            <TextField maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="60.0" HBox.hgrow="ALWAYS"/>
+            <DatePicker maxWidth="120.0" minWidth="120.0" prefWidth="120.0" HBox.hgrow="NEVER"/>
+            <Separator orientation="VERTICAL" prefHeight="200.0"/>
+            <Button maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false"
+                    prefHeight="25.0" prefWidth="25.0" HBox.hgrow="NEVER"/>
+        </HBox>
+        <SplitPane dividerPositions="0.5475234270414994" focusTraversable="true" prefHeight="160.0"
+                   prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <VBox prefHeight="478.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <HBox fx:id="findPanel" prefHeight="0.0" prefWidth="647.0" VBox.vgrow="NEVER">
+                        <VBox.margin>
+                            <Insets/>
+                        </VBox.margin>
+                        <ComboBox maxWidth="150.0" minWidth="80.0" prefHeight="25.0"
+                                  prefWidth="130.0"/>
+                        <ComboBox prefHeight="25.0" prefWidth="94.0"/>
+                        <TextField fx:id="textField_Find" prefHeight="31.0" prefWidth="182.0"
+                                   HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </TextField>
+                    </HBox>
+                    <Separator prefWidth="200.0"/>
+                    <TreeView fx:id="treeView" maxHeight="1.7976931348623157E308"
+                              maxWidth="1.7976931348623157E308" showRoot="false"
+                              style="-fx-background-color: azure;" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <TabPane prefHeight="478.0" prefWidth="411.0" tabClosingPolicy="UNAVAILABLE"
+                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+            </AnchorPane>
+        </SplitPane>
+    </VBox>
+</AnchorPane>
