@@ -1,5 +1,6 @@
 package Logic.Net;
 
+import Logic.MyMath;
 import com.opencsv.bean.CsvBind;
 
 import java.text.ParseException;
@@ -103,6 +104,16 @@ public class Network {
 
     public Network(String ip, String mask, String size, String status, String priority) throws Exception {
         this(ip, mask, size, status, priority, null, null, null);
+    }
+    public Network(Network obj) throws Exception {
+        this.ip = new IP(obj.getIp());
+        this.mask = obj.getMask();
+        this.size = obj.getSize();
+        this.status = STATUS.createStatus(obj.getStatusString());
+        this.priority = obj.getPriority();
+        this.client = obj.getClient();
+        this.typeOfConnection = obj.getTypeOfConnection();
+        this.setDate(obj.getDateString());
     }
 
     public IP getIp() {
@@ -224,6 +235,22 @@ public class Network {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static Network betweenThem(final Network first, final Network second){
+        if(first.equals(second))
+            return null;
+        int distancesIp = IP.moreOn(second.getIp(), first.getIp());
+        if(distancesIp > 0) {
+            int size = MyMath.isDivideBy2Entirely(distancesIp) ? (32-MyMath.countDividedBy(distancesIp,2)) : -1;
+            try {
+                return new Network(new IP(first.getIp()), (byte)size, distancesIp, STATUS.FREE_NETWORK, (byte)5, "", "", null);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return null;
     }
 
     @Override

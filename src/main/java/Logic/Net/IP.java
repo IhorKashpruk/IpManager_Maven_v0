@@ -138,6 +138,36 @@ public class IP {
         return result;
     }
 
+    // return -1 when first network more on them second, 0 equals, and other number > 0
+    public static int moreOn(IP first, IP second){
+        int result = 0;
+        try {
+            if(first.equals(second))
+                return 0;
+            if(!first.isBiggerThan(second))
+                return -1;
+            IP localIp = new IP(first);
+
+            while(!second.equals(localIp)){
+                int n = localIp.data[3] - second.data[3];
+                if(n > 0){
+                    localIp.minus(n);
+                    result += n;
+                }else
+                    if(n < 0){
+                        localIp.minus(256+n);
+                        result += 256+n;
+                    }else {
+                        localIp.minus(256);
+                        result += 256;
+                    }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -25,14 +25,15 @@
                      </Menu>
                  </menus>
               </MenuBar>
-              <HBox fx:id="pathPanell" alignment="CENTER_LEFT" maxHeight="26.0" minHeight="26.0" prefHeight="26.0" prefWidth="705.0" VBox.vgrow="NEVER">
-                  <VBox.margin>
-                      <Insets />
-                  </VBox.margin>
-                  <padding>
-                      <Insets left="5.0" />
-                  </padding>
-              </HBox>
+            <ScrollPane maxHeight="26.0" minHeight="26.0" prefHeight="26.0" prefWidth="749.0" vbarPolicy="NEVER">
+               <content>
+                    <HBox fx:id="pathPanell" alignment="CENTER_LEFT" maxHeight="26.0" maxWidth="1.7976931348623157E308" minHeight="26.0" minWidth="-Infinity" prefHeight="26.0">
+                        <padding>
+                            <Insets left="5.0" />
+                        </padding>
+                    </HBox>
+               </content>
+            </ScrollPane>
               <Separator prefWidth="200.0" />
               <HBox fx:id="editPanel" alignment="CENTER" maxHeight="40.0" minHeight="40.0" prefHeight="100.0" prefWidth="40.0" spacing="5.0" VBox.vgrow="NEVER">
                   <padding>

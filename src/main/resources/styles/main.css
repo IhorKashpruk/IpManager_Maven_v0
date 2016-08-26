@@ -29,7 +29,7 @@
  ******************************************************************************/
 
 .button {
-    -fx-padding: 5 22 5 22;
+    -fx-padding: 5 8 5 8;
 
     -fx-border-color: transparent;
     -fx-border-width: 2;
@@ -39,7 +39,7 @@
     -fx-background-color: #cccccc;
 
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
+    -fx-font-size: 9pt;
     -fx-text-fill: black;
 }
 
@@ -334,7 +334,7 @@
     -fx-background-color: white;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
-    -fx-padding: 0.5em 0em 0.5em 0em; /* 6 0 6 0 */
+    /*-fx-padding: 0.5em 0em 0.5em 0em; !* 6 0 6 0 *!*/
 
     -fx-border-color: #212121;
     -fx-border-style: solid;
@@ -347,7 +347,7 @@
 /* TODO: try to scope the menu-item style to the contextmenu */
 .menu-item {
     -fx-background-color: transparent;
-    -fx-padding: 0.666666em 1.333332em 0.666666em 1.333332em;   /*8 16 8 16 */
+    /*-fx-padding: 0.666666em 1.333332em 0.666666em 1.333332em;   !*8 16 8 16 *!*/
 }
 
 .menu-item .label {
@@ -1035,7 +1035,7 @@
 }
 
 .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
-    -fx-padding: 1em 2em 1em 2em;
+    /*-fx-padding: 1em 1em 1em 1em;*/
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
