@@ -224,8 +224,8 @@ public class MargeNetworkDialog {
             }
             System.out.println("New siec = " + newSiec);
             manager.getData().add(newSiec);
-            manager.upload();
-            manager.selectItem(itemParent, newSiec);
+//            manager.upload();
+//            manager.selectItem(itemParent, newSiec);
             dialog.close();
         });
     }
