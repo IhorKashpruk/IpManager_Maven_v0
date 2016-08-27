@@ -16,6 +16,7 @@ public class MyLittleAlert {
 
     public MyLittleAlert(Alert.AlertType type, String title, String handlerText, String contextText) {
         window = new Alert(type);
+        window.getDialogPane().getStylesheets().add("styles/main.css");
         window.setTitle(title);
         window.setHeaderText(handlerText);
         window.setContentText(contextText);

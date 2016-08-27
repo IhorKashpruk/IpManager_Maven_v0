@@ -96,7 +96,7 @@ public class Network {
         this.priority = localPriority;
         this.client = client;
         this.typeOfConnection = typeOfConnection;
-        if(date != null)
+        if(date != null && !date.isEmpty())
             this.date = dateFormat.parse(date);
         else
             this.date = null;
@@ -224,17 +224,35 @@ public class Network {
         if(network == null)
             return -1;
 //            throw new Exception("Network must be not null. {mth. isBiggerThan(Network}");
-        if(this.size > network.size)
-            return -1;
-        if(this.size < network.size)
-            return 1;
-        int result = 0;
         try {
-           result = this.ip.isBiggerThan(network.ip) ? 1 : -1;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+            if(this.status == STATUS.HOME_NETWORK && network.status == STATUS.HOME_NETWORK)
+            {
+                return this.size == network.size ? (this.ip.isBiggerThan(network.ip) ? 1 : -1) : this.size > network.size ? -1 : 1;
+            }
+            if(this.status == STATUS.HOME_NETWORK || network.status == STATUS.HOME_NETWORK){
+                return this.status == STATUS.HOME_NETWORK ? -1 : 1;
+            }
+
+            return this.ip.isBiggerThan(network.ip) ? 1 : -1;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+//
+//        if(this.size > network.size)
+//            return -1;
+//        if(this.size < network.size)
+//            return 1;
+//        if(this.ip.equals(network.ip)){
+//            return this.status == STATUS.HOME_NETWORK ? -1 : 1;
+//        }
+//        int result = 0;
+//        try {
+//           result = this.ip.isBiggerThan(network.ip) ? 1 : -1;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
     }
 
     public static Network betweenThem(final Network first, final Network second){
@@ -276,14 +294,14 @@ public class Network {
     @Override
     public String toString() {
         return "Network{" +
-                "ip=" + ip +
+                "ip=" + ip.getIp() +
                 ", mask=" + mask +
                 ", size=" + size +
                 ", status=" + status +
                 ", priority=" + priority +
                 ", client='" + client + '\'' +
                 ", typeOfConnection='" + typeOfConnection + '\'' +
-                ", date=" + date +
+                ", date=" + getDateString() +
                 '}';
     }
 }

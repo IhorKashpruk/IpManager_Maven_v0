@@ -1,5 +1,6 @@
 package Controls;
 
+import Controls.Dialogs.MargeNetworkDialog;
 import Controls.TreeViewPanel.EditNetworkPanel;
 import Controls.TreeViewPanel.FindPanel;
 import Controls.TreeViewPanel.PathPanel;
@@ -7,7 +8,6 @@ import Logic.MyMath;
 import Logic.Net.IP;
 import Logic.Net.Network;
 import Logic.Net.STATUS;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -18,12 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.text.Font;
-import javafx.util.StringConverter;
-import sun.nio.ch.Net;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -145,10 +140,10 @@ public class TreeViewManager {
                     new MyLittleAlert(Alert.AlertType.WARNING, "Waring","These networks must be in the same home network", "").showAndWait();
                     return;
                 }
-                if(obj.getValue().getStatus() == STATUS.HOME_NETWORK){
-                    new MyLittleAlert(Alert.AlertType.WARNING, "Waring", "You can not marge with home network", "").showAndWait();
-                    return;
-                }
+//                if(obj.getValue().getStatus() == STATUS.HOME_NETWORK){
+//                    new MyLittleAlert(Alert.AlertType.WARNING, "Waring", "You can not marge with home network", "").showAndWait();
+//                    return;
+//                }
                 count += obj.getValue().getSize();
             }
 
@@ -188,23 +183,20 @@ public class TreeViewManager {
 
         MenuItem deleteItem = new MenuItem("Delete...");
         deleteItem.setOnAction(e -> {
-            TreeItem<Network> siec = treeView.getSelectionModel().getSelectedItem();
-            if(siec != null){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Information");
-                alert.setHeaderText("Delete network: " + siec.getValue());
-                alert.setContentText("Are you sure?");
-                Optional<ButtonType> result = alert.showAndWait();
-                if(result.get() == ButtonType.OK){
-                    remove(siec);
-                    siec.getParent().getChildren().remove(siec);
-                    treeView.getSelectionModel().clearSelection();
-//                    upload();
-//                    selectItem(rootNode, parrentSiec.getValue());
+            ObservableList<TreeItem<Network>> networks = treeView.getSelectionModel().getSelectedItems();
+            List<TreeItem<Network>> list = networks.subList(0, networks.size());
+            for(int i = list.size()-1; i >= 0; i--) {
+                TreeItem<Network> network = list.get(i);
+                if (network != null) {
+                    Optional<ButtonType> result = new MyLittleAlert(Alert.AlertType.CONFIRMATION, "Information", "Delete network: " + network.getValue(), "Are you sure?").showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        remove(network);
+                        network.getParent().getChildren().remove(network);
+//                    treeView.getSelectionModel().clearSelection();
+                    }
                 }
             }
         });
-
         contextMenu.getItems().addAll(newItem, margeIntoOne, new SeparatorMenuItem(), deleteItem);
         treeView.setContextMenu(contextMenu);
     }
@@ -420,7 +412,6 @@ public class TreeViewManager {
 //
 //
     public void setData(List<Network> Siec6List){
-
         data = Siec6List;
     }
 
@@ -600,15 +591,10 @@ public class TreeViewManager {
 
                     for (Network network : networks) n += network.getSize();
                     double freePersent;
-                    if(n == totalSize) {
-                        diagram.setRedColor();
-                        freePersent = 0;
-                    }
-                    else {
-                        diagram.setGreenColor();
-                        double inOnePersent = totalSize / 360.0f;
-                        freePersent = n/inOnePersent;
-                    }
+
+                    diagram.setGreenColor();
+                    double inOnePersent = totalSize / 360.0f;
+                    freePersent = n/inOnePersent;
 
                     diagram.setAngle(freePersent);
                     twoBox.setAlignment(Pos.CENTER_RIGHT);

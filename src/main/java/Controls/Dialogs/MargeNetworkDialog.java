@@ -1,10 +1,11 @@
-package Controls;
+package Controls.Dialogs;
 
 /**
  * Created by Administrator on 26.08.2016.
  */
+import Controls.CallBacks.ComboBoxCallbackStatus_v2;
+import Controls.TreeViewManager;
 import Logic.MyMath;
-import Logic.Net.IP;
 import Logic.Net.Network;
 import Logic.Net.STATUS;
 import javafx.collections.FXCollections;
@@ -23,7 +24,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
@@ -38,7 +38,7 @@ import java.util.List;
 public class MargeNetworkDialog {
     private final Stage dialog;
     private VBox leftBox;
-    private HBox mainBox;
+    private VBox mainBox;
     private VBox ridthBox;
     private ObservableList<TreeItem<Network>> observableList;
     private TreeItem<Network> itemParent;
@@ -54,16 +54,16 @@ public class MargeNetworkDialog {
 
         createElement();
 
-        Scene dialogScene = new Scene(mainBox, 900, 140);
+        Scene dialogScene = new Scene(mainBox, 900, 260);
         dialog.setScene(dialogScene);
         dialog.setResizable(false);
-        dialog.setTitle("Add network");
+        dialog.setTitle("Marge networks");
         dialog.initStyle(StageStyle.UTILITY);
         dialogScene.getStylesheets().add("styles/main.css");
     }
 
     private void createElement(){
-        mainBox = new HBox();
+        mainBox = new VBox();
 
         List<Network> list = new ArrayList<>();
         for (TreeItem<Network> item1 : observableList){
@@ -72,14 +72,16 @@ public class MargeNetworkDialog {
         Collections.sort(list, (o1, o2) -> o1.comparatorForSort(o2));
 
         ListView<Network> leftNetworks = new ListView<>();
-//        leftNetworks.setStyle("-fx-background: white;");
-        leftNetworks.setMinWidth(200);
+        leftNetworks.setStyle("-fx-border-color: #5c5c5c;");
+        leftNetworks.setMinHeight(80);
         leftNetworks.setItems(FXCollections.observableArrayList(list));
 
 
         leftBox = new VBox(5);
+        leftBox.setPadding(new Insets(0,0,0,0));
         VBox.setVgrow(leftBox, Priority.ALWAYS);
         Label textNetworks = new Label("Networks: ");
+        textNetworks.setPadding(new Insets(0,0,0,10));
         textNetworks.setFont(new Font("System", 14));
 
         leftBox.getChildren().addAll(textNetworks, leftNetworks);
@@ -97,7 +99,7 @@ public class MargeNetworkDialog {
         TextField labelIp = new TextField(list.get(0).getIp().getIp());
         labelIp.setEditable(false); labelIp.setMinWidth(110);
         TextField labelMask = new TextField();
-        labelMask.setEditable(false); labelMask.setMinWidth(50);
+        labelMask.setEditable(false); labelMask.setMinWidth(40);
         TextField labelCountIp = new TextField();
         int count = 0;
         for (TreeItem<Network> siecItem:
@@ -106,7 +108,7 @@ public class MargeNetworkDialog {
         }
         labelCountIp.setText(String.valueOf(count));
         labelMask.setText(String.valueOf(32- MyMath.countDividedBy(count, 2)));
-        labelCountIp.setEditable(false); labelCountIp.setMinWidth(60);
+        labelCountIp.setEditable(false); labelCountIp.setMinWidth(50);
 
         ComboBox<ImageView> labelStatus = new ComboBox<>();
         labelStatus.setMaxWidth(50);
@@ -124,12 +126,14 @@ public class MargeNetworkDialog {
         labelPriority.getSelectionModel().select(4);
 
         TextField labelClient = new TextField();
-        labelClient.setMinWidth(100);
+        labelClient.setPromptText("Enter client name...");
+        labelClient.setMinWidth(200);
         TextField labelType = new TextField();
-        labelType.setMinWidth(80);
+        labelType.setPromptText("Enter type of connection...");
+        labelType.setMinWidth(180);
         DatePicker datePicker = new DatePicker();
         String pattern = "dd.MM.yyyy";
-        datePicker.setMinWidth(100);
+        datePicker.setMinWidth(80);
         datePicker.setPromptText(pattern);
         datePicker.setValue(LocalDate.now());
         StringConverter converter = new StringConverter<LocalDate>() {
@@ -163,9 +167,9 @@ public class MargeNetworkDialog {
         Button buttonCancel = new Button("Cancel");
         bottonBox.getChildren().addAll(buttonCancel, buttonOk);
         buttonCancel.setOnAction(event -> dialog.close());
-        ridthBox.getChildren().addAll(titleText, new Separator(Orientation.HORIZONTAL), mainPanelEditing, new Separator(Orientation.HORIZONTAL), bottonBox);
+        ridthBox.getChildren().addAll(titleText, new Separator(Orientation.HORIZONTAL), mainPanelEditing, new Separator(Orientation.HORIZONTAL));
 
-        mainBox.getChildren().addAll(leftBox, ridthBox);
+        mainBox.getChildren().addAll(ridthBox, leftBox, new Separator(Orientation.HORIZONTAL), bottonBox);
 
         // Listeners
         leftNetworks.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
@@ -191,8 +195,8 @@ public class MargeNetworkDialog {
                     setText(null);
                 } else {
                     HBox hBox = new HBox(10);
-                    Label labelAddrMaskCount = new Label(item.getIp().getIp() + " [" + item.getMask() + "] |" + item.getSizeString() + "| {'" +
-                            item.getPriority() + "', '" + item.getClient() + "', '" + item.getTypeOfConnection() + "', '" + item.getDateString() + "'}");
+                    Label labelAddrMaskCount = new Label(item.getIp().getIp() + "\t[" + item.getMask() + "]\t{" + item.getSizeString() + "} \t'" +
+                            item.getPriority() + "', '" + item.getClient() + "', '" + item.getTypeOfConnection() + "', '" + item.getDateString() + "'");
                     String url = item.getStatus() == STATUS.HOME_NETWORK ? "Icons/network.png" :
                             item.getStatus() == STATUS.BUSY_NETWORK ? "Icons/close_network.png" : "Icons/open_network.png";
                     Label image = new Label(null, new ImageView(new Image(url)));

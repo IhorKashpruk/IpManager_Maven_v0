@@ -51,8 +51,11 @@ public class Controller {
         viewManager = new TreeViewManager(treeView, rootNode, null, null, null);
         editPanelClass = new EditNetworkPanel(editPanel, viewManager);
         pathPanelClass = new PathPanel(pathPanell, viewManager);
+        findPanelClass = new FindPanel(viewManager, findPanel);
+        viewManager.setFindPanel(findPanelClass);
         viewManager.setEditNetworkPanel(editPanelClass);
         viewManager.setPathPanel(pathPanelClass);
+        viewManager.setFindPanel(findPanelClass);
     }
 
     @FXML
@@ -71,9 +74,7 @@ public class Controller {
                 list = csvManager.readData();
                 viewManager.setData(list);
                 viewManager.upload();
-                findPanelClass = new FindPanel(viewManager, findPanel);
-                viewManager.setFindPanel(findPanelClass);
-
+                viewManager.getFindPanel().setRealData(viewManager.getData());
             } catch (Exception e) {
                 e.printStackTrace();
             }

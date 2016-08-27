@@ -1,20 +1,14 @@
 package Controls.TreeViewPanel;
 
-import Controls.ComboBoxCallbackStatus;
+import Controls.CallBacks.ComboBoxCallbackStatus;
 import Controls.TreeViewManager;
 import Logic.Net.Network;
 import Logic.Net.STATUS;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import sun.nio.ch.Net;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,6 +35,8 @@ public class FindPanel {
         }
         firstComboBox.setCellFactory(new ComboBoxCallbackStatus());
         firstComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(realData == null)
+                return;
             if(oldValue != newValue){
                 if(newValue != STATUS.HOME_NETWORK) {
                     List<Network> list = new ArrayList<Network>();
@@ -66,6 +62,8 @@ public class FindPanel {
 
         TextField findInput = (TextField) mainBox.getChildren().get(2);
         secondComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue == null)
+                return;
             switch (newValue){
                 case "ip": findInput.setPromptText("Enter ip..."); break;
                 case "mask": findInput.setPromptText("Enter mask..."); break;
@@ -90,5 +88,9 @@ public class FindPanel {
     }
     public STATUS getStatus(){
         return ((ComboBox<STATUS>)mainBox.getChildren().get(0)).getSelectionModel().getSelectedItem();
+    }
+
+    public void setRealData(List<Network> realData) {
+        this.realData = realData;
     }
 }

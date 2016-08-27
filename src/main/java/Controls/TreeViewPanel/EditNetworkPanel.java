@@ -1,12 +1,11 @@
 package Controls.TreeViewPanel;
 
-import Controls.ComboBoxCallbackStatus_v2;
+import Controls.CallBacks.ComboBoxCallbackStatus_v2;
 import Controls.MyLittleAlert;
 import Controls.TreeViewManager;
 import Logic.Net.Network;
 import Logic.Net.STATUS;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -81,8 +80,8 @@ public class EditNetworkPanel {
                         return;
                     for (int i = 0; i < currentTreeItem.getChildren().size(); i++) {
                         viewManager.remove(currentTreeItem.getChildren().get(i));
-                        currentTreeItem.getChildren().clear();
                     }
+                    currentTreeItem.getChildren().clear();
                 }
             }
             network.setStatus(status);
@@ -101,9 +100,10 @@ public class EditNetworkPanel {
                 STATUS lastStatus = viewManager.getFindPanel().getStatus();
                 viewManager.getFindPanel().setStatus(STATUS.HOME_NETWORK);
                 viewManager.getFindPanel().setStatus(lastStatus);
-            }else
-                if(currentTreeItem.getParent() != viewManager.getRootNode())
-                    currentTreeItem.getParent().setExpanded(false);
+            }
+            Network localNetwork = currentTreeItem.getValue();
+            currentTreeItem.setValue(null);
+            currentTreeItem.setValue(localNetwork);
         });
     }
 
