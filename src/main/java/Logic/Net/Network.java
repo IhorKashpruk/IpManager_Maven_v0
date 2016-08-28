@@ -210,14 +210,12 @@ public class Network {
         if(network == null)
             return false;
         if(this.equals(network))
-            return false;
+            return true;
         IP thisLastIp = IP.moveIP(this.ip, this.size);
         IP otherLastIp = IP.moveIP(network.ip, network.size);
-        if((ip.equals(network.getIp()) || ip.isBiggerThan(network.ip)) &&
-                (otherLastIp.isBiggerThan(thisLastIp) || thisLastIp.equals(otherLastIp))){
-            return true;
-        }
-        return false;
+        System.out.println(thisLastIp.getIp() + ", " + otherLastIp.getIp());
+        return (ip.equals(network.getIp()) || ip.isBiggerThan(network.ip)) &&
+                (otherLastIp.isBiggerThan(thisLastIp) || thisLastIp.equals(otherLastIp));
     }
 
     public int comparatorForSort(Network network) /*throws Exception*/ {
@@ -293,15 +291,15 @@ public class Network {
 
     @Override
     public String toString() {
-        return "Network{" +
+        return "Network(" +
                 "ip=" + ip.getIp() +
                 ", mask=" + mask +
                 ", size=" + size +
                 ", status=" + status +
                 ", priority=" + priority +
                 ", client='" + client + '\'' +
-                ", typeOfConnection='" + typeOfConnection + '\'' +
+                ", type fo connection='" + typeOfConnection + '\'' +
                 ", date=" + getDateString() +
-                '}';
+                ')';
     }
 }

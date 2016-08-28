@@ -76,7 +76,7 @@ public class EditNetworkPanel {
                     Optional<ButtonType> result = new MyLittleAlert(Alert.AlertType.CONFIRMATION, "Attention",
                             "This network consists of " + currentTreeItem.getChildren().size() + " nodes!!!",
                             "Are you sure? Remove them?").showAndWait();
-                    if(result.get() == ButtonType.NO)
+                    if(result.get() == ButtonType.NO || result.get() == ButtonType.CANCEL || result.get() == ButtonType.CLOSE)
                         return;
                     for (int i = 0; i < currentTreeItem.getChildren().size(); i++) {
                         viewManager.remove(currentTreeItem.getChildren().get(i));

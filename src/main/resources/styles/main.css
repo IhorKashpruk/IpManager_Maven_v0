@@ -1055,3 +1055,16 @@
     -fx-background-color: -fx-background;
     -fx-background-insets: 0;
 }
+
+
+/*.split-pane:horizontal > .split-pane-divider {*/
+    /*-fx-background-color: transparent;*/
+/*}*/
+/*.split-pane:vertical > .split-pane-divider {*/
+    /*-fx-background-color: transparent;*/
+/*}*/
+
+.split-pane:horizontal > .split-pane-divider{
+    -fx-background-color: #bababa, white;
+    -fx-pref-width: 1px;
+}

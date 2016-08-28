@@ -207,6 +207,8 @@ public class MargeNetworkDialog {
             }
         });
 
+
+        // ПЕРЕВІРИТИ ЧИ НЕМАЄ ТАКОЇ СВМОЇ HOME_NETWORK!!!!!!!!!!!!
         buttonOk.setOnAction(event -> {
             for(TreeItem<Network> siec:
                     observableList) {
@@ -222,10 +224,9 @@ public class MargeNetworkDialog {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("New siec = " + newSiec);
             manager.getData().add(newSiec);
-//            manager.upload();
-//            manager.selectItem(itemParent, newSiec);
+            manager.upload();
+            manager.selectItem(itemParent, newSiec);
             dialog.close();
         });
     }
