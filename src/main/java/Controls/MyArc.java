@@ -29,11 +29,14 @@ public class MyArc {
             setRedColor();
         }
         else {
-            if(startAngle != 0.0f)
+            if(startAngle != 0.0f) {
                 tooltip.setText("This network is " + startAngle / 360 * 100 + "% free.");
-            else
+                setYellowColor();
+            }
+            else {
                 tooltip.setText("This network is completely filled.");
-            setGreenColor();
+                setGreenColor();
+            }
         }
         arc.setStartAngle(startAngle);
         arc.setLength(360.0f-startAngle);
@@ -46,6 +49,8 @@ public class MyArc {
     public void setRedColor(){
         arc.setFill(Color.web("#F22613"));
     }
+
+    public void setYellowColor(){ arc.setFill(Color.web("#F78A3B")); }
 
     public void setGreenColor(){
         arc.setFill(Color.web("#2ECC71"));

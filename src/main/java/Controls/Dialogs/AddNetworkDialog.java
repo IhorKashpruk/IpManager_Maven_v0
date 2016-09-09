@@ -86,7 +86,6 @@ public class AddNetworkDialog {
         leftMainBox.getChildren().addAll(textFreeAddres, leftNetwork);
 
         TreeViewManager.findFreeSpace(item, networkList);
-        System.out.println(networkList.get(0));
 
         for (Network network : networkList) {
             try {
@@ -96,9 +95,14 @@ public class AddNetworkDialog {
             }
         }
 
-
-        leftNetwork.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-                labelIp.setText(newValue.substring(1, newValue.indexOf(','))));
+//
+//        leftNetwork.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+//                labelIp.setText(newValue.substring(1, newValue.indexOf(','))));
+        leftNetwork.setOnMouseClicked(event -> {
+            String newValue = leftNetwork.getSelectionModel().getSelectedItem();
+            if(newValue != null)
+                labelIp.setText(newValue.substring(1, newValue.indexOf(',')));
+        });
 
         mainBox.setStyle("-fx-background-color: white;");
         HBox.setHgrow(mainBox, Priority.ALWAYS);
@@ -310,8 +314,6 @@ public class AddNetworkDialog {
                 Network newNetwork = new Network(ipAddress, labelMask.getText(), labelCountIp.getText(), status, "1", "", "", null);
                 boolean isInto = false;
                 for (Network network : networkList) {
-                    System.out.println(network);
-                    System.out.println(newNetwork);
                     if (newNetwork.thisIsParrentNetwork(network)) {
                         isInto = true;
                         break;

@@ -103,7 +103,7 @@ public class Network {
     }
 
     public Network(String ip, String mask, String size, String status, String priority) throws Exception {
-        this(ip, mask, size, status, priority, null, null, null);
+        this(ip, mask, size, status, priority, "", "", null);
     }
     public Network(Network obj) throws Exception {
         this.ip = new IP(obj.getIp());
@@ -213,7 +213,6 @@ public class Network {
             return true;
         IP thisLastIp = IP.moveIP(this.ip, this.size);
         IP otherLastIp = IP.moveIP(network.ip, network.size);
-        System.out.println(thisLastIp.getIp() + ", " + otherLastIp.getIp());
         return (ip.equals(network.getIp()) || ip.isBiggerThan(network.ip)) &&
                 (otherLastIp.isBiggerThan(thisLastIp) || thisLastIp.equals(otherLastIp));
     }
@@ -221,14 +220,13 @@ public class Network {
     public int comparatorForSort(Network network) /*throws Exception*/ {
         if(network == null)
             return -1;
-//            throw new Exception("Network must be not null. {mth. isBiggerThan(Network}");
         try {
             if(this.status == STATUS.HOME_NETWORK && network.status == STATUS.HOME_NETWORK)
             {
-                return this.size == network.size ? (this.ip.isBiggerThan(network.ip) ? 1 : -1) : this.size > network.size ? -1 : 1;
+                return this.ip.equals(network.ip) ? (this.size > network.size ? -1 : 1) : this.ip.isBiggerThan(network.getIp()) ? 1 : -1;
             }
             if(this.status == STATUS.HOME_NETWORK || network.status == STATUS.HOME_NETWORK){
-                return this.status == STATUS.HOME_NETWORK ? -1 : 1;
+                return this.thisIsParrentNetwork(network) ? 1 : this.ip.isBiggerThan(network.getIp()) ? 1 : -1;
             }
 
             return this.ip.isBiggerThan(network.ip) ? 1 : -1;
@@ -236,21 +234,6 @@ public class Network {
                 e.printStackTrace();
             }
             return 0;
-//
-//        if(this.size > network.size)
-//            return -1;
-//        if(this.size < network.size)
-//            return 1;
-//        if(this.ip.equals(network.ip)){
-//            return this.status == STATUS.HOME_NETWORK ? -1 : 1;
-//        }
-//        int result = 0;
-//        try {
-//           result = this.ip.isBiggerThan(network.ip) ? 1 : -1;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return result;
     }
 
     public static Network betweenThem(final Network first, final Network second){
@@ -278,7 +261,14 @@ public class Network {
 
         if (mask != network.mask) return false;
         if (size != network.size) return false;
-        return ip != null ? ip.equals(network.ip) : network.ip == null;
+        if (priority != network.priority) return false;
+        if (ip != null ? !ip.equals(network.ip) : network.ip != null) return false;
+        if (status != network.status) return false;
+        if (client != null ? !client.equals(network.client) : network.client != null) return false;
+        if (typeOfConnection != null ? !typeOfConnection.equals(network.typeOfConnection) : network.typeOfConnection != null)
+            return false;
+        return date != null ? date.equals(network.date) : network.date == null;
+
     }
 
     @Override
@@ -286,6 +276,11 @@ public class Network {
         int result = ip != null ? ip.hashCode() : 0;
         result = 31 * result + (int) mask;
         result = 31 * result + size;
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (int) priority;
+        result = 31 * result + (client != null ? client.hashCode() : 0);
+        result = 31 * result + (typeOfConnection != null ? typeOfConnection.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
     }
 

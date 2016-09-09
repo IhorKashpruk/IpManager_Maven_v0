@@ -5,6 +5,10 @@
     Description:
         Light Metro style sheet for use in JavaFX applications
 */
+.root {
+    -fx-accent: #61D3FA;
+    -fx-focus-color: #adadad;
+}
 
 .background{
     -fx-background-color: white;
@@ -1065,6 +1069,11 @@
 /*}*/
 
 .split-pane:horizontal > .split-pane-divider{
+    -fx-background-color: #bababa, white;
+    -fx-pref-width: 1px;
+}
+
+.split-pane:vertical > .split-pane-divider{
     -fx-background-color: #bababa, white;
     -fx-pref-width: 1px;
 }

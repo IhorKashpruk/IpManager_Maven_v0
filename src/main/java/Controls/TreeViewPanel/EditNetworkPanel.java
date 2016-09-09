@@ -26,6 +26,7 @@ public class EditNetworkPanel {
     private TreeItem<Network> currentTreeItem;
 
     public EditNetworkPanel(HBox mainBox, TreeViewManager viewManager) {
+        currentTreeItem = null;
         this.mainBox = mainBox;
         this.viewManager = viewManager;
         ComboBox<ImageView> comboBoxStatus = (ComboBox<ImageView>)mainBox.getChildren().get(3);
@@ -78,7 +79,9 @@ public class EditNetworkPanel {
                             "Are you sure? Remove them?").showAndWait();
                     if(result.get() == ButtonType.NO || result.get() == ButtonType.CANCEL || result.get() == ButtonType.CLOSE)
                         return;
-                    for (int i = 0; i < currentTreeItem.getChildren().size(); i++) {
+                    System.out.println("\nCurrent: " + network + ", size: " + currentTreeItem.getChildren().size());
+                    for (int i = currentTreeItem.getChildren().size()-1; i>=0; i--) {
+                        System.out.println("Delete : " + currentTreeItem.getChildren().get(i).getValue());
                         viewManager.remove(currentTreeItem.getChildren().get(i));
                     }
                     currentTreeItem.getChildren().clear();
@@ -104,6 +107,8 @@ public class EditNetworkPanel {
             Network localNetwork = currentTreeItem.getValue();
             currentTreeItem.setValue(null);
             currentTreeItem.setValue(localNetwork);
+            viewManager.updateFreeNetworks();
+//            viewManager.upload();
         });
     }
 
@@ -122,10 +127,6 @@ public class EditNetworkPanel {
         ((TextField)mainBox.getChildren().get(5)).setText(currentNetwork.getClient());
         ((TextField)mainBox.getChildren().get(6)).setText(currentNetwork.getTypeOfConnection());
         ((DatePicker)mainBox.getChildren().get(7)).setValue(((DatePicker)mainBox.getChildren().get(7)).getConverter().fromString(currentNetwork.getDateString()));
-    }
-
-    private void showAllert(){
-
     }
 
 }

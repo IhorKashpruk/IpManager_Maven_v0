@@ -1,7 +1,9 @@
 package Controls;
 
+import Controls.CallBacks.ComboBoxCallbackStatus_v2;
 import Controls.Dialogs.AddNetworkDialog;
 import Controls.Dialogs.MargeNetworkDialog;
+import Controls.TreeViewPanel.DividePanel;
 import Controls.TreeViewPanel.EditNetworkPanel;
 import Controls.TreeViewPanel.FindPanel;
 import Controls.TreeViewPanel.PathPanel;
@@ -32,10 +34,34 @@ public class TreeViewManager {
     private PathPanel pathPanel;
     private EditNetworkPanel editNetworkPanel;
     private FindPanel findPanel;
+    private ListView<Network> freeNetworkList;
+    private DividePanel dividePanel = null;
+
     /*Members*/
     private TreeItem<Network> rootNode;
     private TreeView<Network> treeView;
     private List<Network> data;
+
+
+    public void setDividePanel(DividePanel dividePanel) {
+        this.dividePanel = dividePanel;
+    }
+
+    public void setFreeNetworkList(ListView<Network> freeNetworkList) {
+        this.freeNetworkList = freeNetworkList;
+    }
+    public void updateFreeNetworks(){
+        if(freeNetworkList != null)
+        {
+            List<Network> list = new ArrayList<>();
+            for(Network network: data){
+                if (network.getStatus() == STATUS.FREE_NETWORK)
+                    list.add(network);
+            }
+            freeNetworkList.getItems().clear();
+            freeNetworkList.setItems(FXCollections.observableArrayList(list));
+        }
+    }
 
     public void setEditNetworkPanel(EditNetworkPanel editNetworkPanel) {
         this.editNetworkPanel = editNetworkPanel;
@@ -58,23 +84,34 @@ public class TreeViewManager {
     }
 
     public TreeViewManager(TreeView<Network> treeView, TreeItem<Network> rootNode, PathPanel pathPanel, EditNetworkPanel editNetworkPanel, FindPanel findPanel) {
+        this.data = null;
         this.rootNode = rootNode;
         this.treeView = treeView;
         this.pathPanel = pathPanel;
         this.editNetworkPanel = editNetworkPanel;
         this.findPanel = findPanel;
+        freeNetworkList = null;
         treeView.setRoot(rootNode);
         treeView.setCellFactory(e -> new CustomCell());
+//        treeView.setFocusTraversable(false);
 
-        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue == null)
-                return;
-            if( this.editNetworkPanel != null)
-                this.editNetworkPanel.setNetwork(newValue);
-            if(this.pathPanel != null)
-                this.pathPanel.setPath(newValue);
+        treeView.setOnMouseClicked(event -> {
+            TreeItem<Network> selectItem = treeView.getSelectionModel().getSelectedItem();
+            if(selectItem != null){
+                if( this.editNetworkPanel != null)
+                    this.editNetworkPanel.setNetwork(selectItem);
+                if(this.pathPanel != null)
+                    this.pathPanel.setPath(selectItem);
+                if(this.dividePanel != null)
+                    this.dividePanel.setNetwork(selectItem);
+            }
         });
         createMenu();
+    }
+
+    public void setRootNode(TreeItem<Network> rootNode) {
+        this.rootNode = rootNode;
+        this.treeView.setRoot(this.rootNode);
     }
 
     private void createMenu(){
@@ -87,10 +124,10 @@ public class TreeViewManager {
         newItem.getItems().addAll(addHomeSiec, addFreeSiec, addBusySiec);
         contextMenu.setOnShowing(observable -> {
             TreeItem<Network> network = treeView.getSelectionModel().getSelectedItem();
-            if(network == rootNode){
-                new MyLittleAlert(Alert.AlertType.INFORMATION, "Information", "This is main node", "").showAndWait();
-                return;
-            }
+//            if(network == rootNode){
+//                new MyLittleAlert(Alert.AlertType.INFORMATION, "Information", "This is main node", "").showAndWait();
+//                return;
+//            }
             if(network != null){
                 if(network.getValue().getStatus() != STATUS.HOME_NETWORK){
                     newItem.hide();
@@ -105,6 +142,7 @@ public class TreeViewManager {
                 new AddNetworkDialog(siec, this, STATUS.HOME_NETWORK).show();
             }else
                 new AddNetworkDialog(rootNode, this, STATUS.HOME_NETWORK).show();
+            updateFreeNetworks();
         });
         addFreeSiec.setOnAction(event -> {
             TreeItem<Network> siec = (TreeItem<Network>) treeView.getSelectionModel().getSelectedItem();
@@ -112,6 +150,7 @@ public class TreeViewManager {
                 new AddNetworkDialog(siec, this, STATUS.FREE_NETWORK).show();
             }else
                 new AddNetworkDialog(rootNode, this, STATUS.FREE_NETWORK).show();
+            updateFreeNetworks();
         });
         addBusySiec.setOnAction(event -> {
             TreeItem<Network> siec = (TreeItem<Network>) treeView.getSelectionModel().getSelectedItem();
@@ -119,6 +158,7 @@ public class TreeViewManager {
                 new AddNetworkDialog(siec, this, STATUS.BUSY_NETWORK).show();
             }else
                 new AddNetworkDialog(rootNode, this, STATUS.BUSY_NETWORK).show();
+            updateFreeNetworks();
         });
 
 
@@ -172,11 +212,6 @@ public class TreeViewManager {
             }
             Collections.sort(list, Network::comparatorForSort);
 
-            for (Network s :
-                    list) {
-                System.out.println(s);
-            }
-
             for (int i = 0; i < list.size()-1; i++){
                 Network network = list.get(i);
                 Network network2 = list.get(i+1);
@@ -199,8 +234,14 @@ public class TreeViewManager {
         deleteItem.setOnAction(e -> {
             ObservableList<TreeItem<Network>> networks = treeView.getSelectionModel().getSelectedItems();
             List<TreeItem<Network>> list = networks.subList(0, networks.size());
+            System.out.println(list.size());
             for(int i = list.size()-1; i >= 0; i--) {
+                System.out.println(i);
                 TreeItem<Network> network = list.get(i);
+                if(network == rootNode){
+                    new MyLittleAlert(Alert.AlertType.INFORMATION, "Delete network", "You can not delete root network!", "").showAndWait();
+                    return;
+                }
                 if (network != null) {
                     Optional<ButtonType> result = new MyLittleAlert(Alert.AlertType.CONFIRMATION, "Delete network", "Delete " + network.getValue(), "Are you sure?").showAndWait();
                     if (result.get() == ButtonType.OK) {
@@ -210,6 +251,7 @@ public class TreeViewManager {
                     }
                 }
             }
+            updateFreeNetworks();
         });
         contextMenu.getItems().addAll(newItem, margeIntoOne, new SeparatorMenuItem(), deleteItem);
         treeView.setContextMenu(contextMenu);
@@ -221,6 +263,7 @@ public class TreeViewManager {
 
     public void setData(List<Network> Siec6List){
         data = Siec6List;
+        updateFreeNetworks();
     }
 
     public List<Network> getData() {
@@ -279,11 +322,11 @@ public class TreeViewManager {
 
     public void selectItems(TreeItem<Network> start, String column, String value){
         for(TreeItem<Network> depNode : start.getChildren()){
-            if(!depNode.getValue().getValue(column).isEmpty()){
-                if(depNode.getValue().getValue(column).equals(value))
-                    treeView.getSelectionModel().select(depNode);
-            }
             selectItems(depNode, column, value);
+        }
+        if(!start.getValue().getValue(column).isEmpty()){
+            if(start.getValue().getValue(column).equals(value))
+                treeView.getSelectionModel().select(start);
         }
     }
     public void selectItem(TreeItem<Network> start, Network network){
@@ -343,11 +386,22 @@ public class TreeViewManager {
             e.printStackTrace();
         }
     }
-//
-//    public TreeItem<Siec6> getRootNode() {
-//        return rootNode;
-//    }
-//
+    public static void findFreeNetwork(TreeItem<Network> startNode, List list){
+        for(TreeItem<Network> depNode : startNode.getChildren()){
+          findFreeNetwork(depNode, list);
+        }
+        if(startNode.getValue().getStatus() == STATUS.FREE_NETWORK)
+            list.add(startNode.getValue());
+    }
+
+    public void setCellFactoryV2(){
+        treeView.setCellFactory(e->new CustomCellV_2(this));
+    }
+
+    public void setCellFactoryV1(){
+        treeView.setCellFactory(e->new CustomCell());
+    }
+
     class CustomCell extends TreeCell<Network> {
 
         final HBox cellBox = new HBox(10);
@@ -414,6 +468,99 @@ public class TreeViewManager {
                 setGraphic(cellBox);
                 setText(null);
 
+            }
+        }
+    }
+
+    class CustomCellV_2 extends TreeCell<Network> {
+
+        final HBox cellBox = new HBox(10);
+        final Label labelIpMasSize = new Label();
+        final ComboBox<ImageView> icon = new ComboBox<>();
+        final HBox twoBox = new HBox();
+        final MyArc diagram = new MyArc();
+        final ObservableList<PieChart.Data> datas = FXCollections.observableArrayList();
+        final TreeViewManager treeViewManager;
+
+        public CustomCellV_2(TreeViewManager treeViewManager) {
+            this.treeViewManager = treeViewManager;
+            twoBox.setPadding(new Insets(0,5,0,0));
+            HBox.setHgrow(twoBox, Priority.ALWAYS);
+            cellBox.setAlignment(Pos.CENTER_LEFT);
+            twoBox.setMaxWidth(Double.MAX_VALUE);
+            icon.setCellFactory(new ComboBoxCallbackStatus_v2());
+            icon.setMaxWidth(35);
+            icon.setItems(FXCollections.observableArrayList(
+                    new ImageView(new Image("icons/close_network.png")),
+                    new ImageView(new Image("icons/open_network.png")),
+                    new ImageView(new Image("icons/network.png"))));
+            icon.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+                if(!Objects.equals(oldValue, newValue) && oldValue.intValue() == 2 && getTreeItem().getChildren().size() > 0){
+//                    Optional<ButtonType> result = new MyLittleAlert(Alert.AlertType.CONFIRMATION, "Attention",
+//                            "This network consists of " + getTreeItem().getChildren().size() + " nodes!!!",
+//                            "Are you sure? Remove them?").showAndWait();
+//                    if(result.get() == ButtonType.NO || result.get() == ButtonType.CANCEL || result.get() == ButtonType.CLOSE)
+//                        return;
+                    for (int i = 0; i < getTreeItem().getChildren().size(); i++) {
+                        treeViewManager.remove(getTreeItem().getChildren().get(i));
+                    }
+                    getTreeItem().getChildren().clear();
+                }
+                getItem().setStatus(newValue.intValue() == 0 ? STATUS.BUSY_NETWORK : newValue.intValue() == 1 ? STATUS.FREE_NETWORK : STATUS.HOME_NETWORK);
+                updateItem(getItem(), false);
+                getTreeView().getSelectionModel().clearSelection();
+                getTreeView().requestFocus();
+            });
+        }
+
+        @Override
+        protected void updateItem(Network item, boolean empty) {
+            super.updateItem(item, empty);
+
+            // If the cell is empty we don't show anything.
+            if (isEmpty() || item == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                labelIpMasSize.setText(item.getIp().getIp() + "\t[" + item.getMaskString() + "]\t{"+item.getSizeString()+"}");
+                if(item.getStatus() == STATUS.HOME_NETWORK){
+                    icon.getSelectionModel().select(2);
+                    cellBox.setStyle("-fx-border-color: darkgrey;");
+                }else
+                if(item.getStatus() == STATUS.FREE_NETWORK) {
+                    cellBox.setStyle("");
+                    icon.getSelectionModel().select(1);
+                }else {
+                    cellBox.setStyle("");
+                    icon.getSelectionModel().select(0);
+                }
+                cellBox.getChildren().clear();
+                cellBox.getChildren().addAll(icon, labelIpMasSize);
+
+                if(item.getStatus() == STATUS.HOME_NETWORK) {
+                    datas.clear();
+                    List<Network> networks = new ArrayList<>();
+                    TreeViewManager.findFreeSpace(getTreeItem(), networks);
+
+                    double n = 0;
+                    double totalSize = item.getSize();
+
+                    for (Network network : networks) n += network.getSize();
+                    double freePersent;
+
+                    diagram.setGreenColor();
+                    double inOnePersent = totalSize / 360.0f;
+                    freePersent = n/inOnePersent;
+
+                    diagram.setAngle(freePersent);
+                    twoBox.setAlignment(Pos.CENTER_RIGHT);
+                    twoBox.getChildren().clear();
+                    twoBox.getChildren().add(diagram.getArc());
+                    cellBox.getChildren().add(twoBox);
+                }
+
+                setGraphic(cellBox);
+                setText(null);
             }
         }
     }

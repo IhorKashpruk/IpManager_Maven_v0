@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import sun.nio.ch.Net;
 
 import java.util.Locale;
@@ -15,9 +16,10 @@ import java.util.Locale;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainWindow.fxml"));
-        primaryStage.setTitle("IP Manager");
-        primaryStage.setScene(new Scene(root, 700, 500));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/SplashFXML.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
