@@ -1,289 +1,397 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="976.0" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
-   <children>
-       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <children>
-              <MenuBar>
-                 <menus>
-                     <Menu mnemonicParsing="false" text="File">
-                        <items>
-                            <MenuItem fx:id="openFileItem" mnemonicParsing="false" onAction="#openFile" text="Open" />
-                            <MenuItem fx:id="saveFileItem" mnemonicParsing="false" onAction="#saveFile" text="Save" />
-                        <MenuItem fx:id="openFileItem1" mnemonicParsing="false" onAction="#saveFileAs" text="Save As ..." />
-                            <MenuItem fx:id="exitButtonMenu" mnemonicParsing="false" text="Exit" />
-                        </items>
-                     </Menu>
-                     <Menu mnemonicParsing="false" text="Help">
-                        <items>
-                            <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="About" />
-                        </items>
-                     </Menu>
-                 </menus>
-              </MenuBar>
-            <ScrollPane maxHeight="26.0" minHeight="26.0" prefHeight="26.0" prefWidth="749.0" vbarPolicy="NEVER">
-               <content>
-                    <HBox fx:id="pathPanell" alignment="CENTER_LEFT" maxHeight="26.0" maxWidth="1.7976931348623157E308" minHeight="26.0" minWidth="-Infinity" prefHeight="26.0">
-                        <padding>
-                            <Insets left="5.0" />
-                        </padding>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="780.0" prefWidth="976.0" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <MenuBar>
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem fx:id="openFileItem" mnemonicParsing="false" onAction="#openFile" text="Open"/>
+                <MenuItem fx:id="saveFileItem" mnemonicParsing="false" onAction="#saveFile" text="Save"/>
+                <MenuItem fx:id="openFileItem1" mnemonicParsing="false" onAction="#saveFileAs"
+                          text="Save As ..."/>
+                <MenuItem fx:id="exitButtonMenu" mnemonicParsing="false" text="Exit"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="About"/>
+            </Menu>
+        </MenuBar>
+        <ScrollPane maxHeight="26.0" minHeight="26.0" prefHeight="26.0" prefWidth="749.0" vbarPolicy="NEVER">
+            <HBox fx:id="pathPanell" alignment="CENTER_LEFT" maxHeight="26.0" maxWidth="1.7976931348623157E308"
+                  minHeight="26.0" minWidth="-Infinity" prefHeight="26.0">
+                <padding>
+                    <Insets left="5.0"/>
+                </padding>
+            </HBox>
+        </ScrollPane>
+        <Separator prefWidth="200.0"/>
+        <HBox fx:id="editPanel" alignment="CENTER" maxHeight="40.0" minHeight="40.0" prefHeight="100.0"
+              prefWidth="40.0" spacing="5.0" VBox.vgrow="NEVER">
+            <padding>
+                <Insets right="5.0"/>
+            </padding>
+            <TextField editable="false" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="120.0"
+                       HBox.hgrow="NEVER"/>
+            <TextField editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
+            <TextField editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
+            <ComboBox maxWidth="60.0" minWidth="40.0" prefHeight="25.0" prefWidth="60.0"/>
+            <ComboBox prefHeight="25.0" prefWidth="60.0"/>
+            <TextField maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0"
+                       HBox.hgrow="ALWAYS"/>
+            <TextField maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="60.0" HBox.hgrow="ALWAYS"/>
+            <DatePicker maxWidth="120.0" minWidth="120.0" prefWidth="120.0" HBox.hgrow="NEVER"/>
+            <Separator orientation="VERTICAL" prefHeight="200.0"/>
+            <Button maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false"
+                    prefHeight="25.0" prefWidth="25.0" HBox.hgrow="NEVER"/>
+        </HBox>
+        <SplitPane dividerPositions="0.2737617135207497" focusTraversable="true" prefHeight="160.0"
+                   prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <VBox prefHeight="478.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <HBox fx:id="findPanel" prefHeight="0.0" prefWidth="647.0" VBox.vgrow="NEVER">
+                        <VBox.margin>
+                            <Insets/>
+                        </VBox.margin>
+                        <ComboBox maxWidth="150.0" minWidth="80.0" prefHeight="25.0"
+                                  prefWidth="130.0"/>
+                        <ComboBox prefHeight="25.0" prefWidth="94.0"/>
+                        <TextField fx:id="textField_Find" prefHeight="31.0" prefWidth="182.0"
+                                   HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </TextField>
                     </HBox>
-               </content>
-            </ScrollPane>
-              <Separator prefWidth="200.0" />
-              <HBox fx:id="editPanel" alignment="CENTER" maxHeight="40.0" minHeight="40.0" prefHeight="100.0" prefWidth="40.0" spacing="5.0" VBox.vgrow="NEVER">
-                  <padding>
-                      <Insets right="5.0" />
-                  </padding>
-                 <children>
-                     <TextField editable="false" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="120.0" HBox.hgrow="NEVER" />
-                     <TextField editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
-                     <TextField editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
-                     <ComboBox maxWidth="60.0" minWidth="40.0" prefHeight="25.0" prefWidth="60.0" />
-                     <ComboBox prefHeight="25.0" prefWidth="60.0" />
-                     <TextField maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
-                     <TextField maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="60.0" HBox.hgrow="ALWAYS" />
-                     <DatePicker maxWidth="120.0" minWidth="120.0" prefWidth="120.0" HBox.hgrow="NEVER" />
-                     <Separator orientation="VERTICAL" prefHeight="200.0" />
-                     <Button maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" HBox.hgrow="NEVER" />
-                 </children>
-              </HBox>
-              <SplitPane dividerPositions="0.2737617135207497" focusTraversable="true" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                 <items>
-                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                        <children>
-                            <VBox prefHeight="478.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                               <children>
-                                   <HBox fx:id="findPanel" prefHeight="0.0" prefWidth="647.0" VBox.vgrow="NEVER">
-                                       <VBox.margin>
-                                           <Insets />
-                                       </VBox.margin>
-                                      <children>
-                                          <ComboBox maxWidth="150.0" minWidth="80.0" prefHeight="25.0" prefWidth="130.0" />
-                                          <ComboBox prefHeight="25.0" prefWidth="94.0" />
-                                          <TextField fx:id="textField_Find" prefHeight="31.0" prefWidth="182.0" HBox.hgrow="ALWAYS">
-                                              <HBox.margin>
-                                                  <Insets />
-                                              </HBox.margin>
-                                          </TextField>
-                                      </children>
-                                   </HBox>
-                                   <Separator prefWidth="200.0" />
-                                   <TreeView fx:id="treeView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" showRoot="false" style="-fx-background-color: azure;" VBox.vgrow="ALWAYS" />
-                               </children>
-                            </VBox>
-                        </children>
-                     </AnchorPane>
-                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="684.0" prefWidth="707.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <items>
-                            <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <VBox prefHeight="338.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <Label text="Free networks:">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Label>
-                                          <ListView fx:id="listViewFreeNet" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="150.0" prefWidth="200.0" />
-                                          <Separator prefWidth="200.0" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <VBox prefHeight="338.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <HBox fx:id="editPanel2" alignment="CENTER" maxHeight="40.0" minHeight="40.0" prefHeight="100.0" prefWidth="40.0" spacing="5.0">
-                                             <children>
-                                                <TextField editable="false" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="120.0" HBox.hgrow="NEVER" />
-                                                <TextField editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
-                                                <TextField editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
-                                                <ComboBox maxWidth="60.0" minWidth="40.0" prefHeight="25.0" prefWidth="60.0" />
-                                                <ComboBox prefHeight="25.0" prefWidth="60.0" />
-                                                <TextField maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
-                                                <TextField maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="60.0" HBox.hgrow="ALWAYS" />
-                                                <DatePicker maxWidth="120.0" minWidth="120.0" prefWidth="120.0" HBox.hgrow="NEVER" />
-                                                <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                <Button maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" HBox.hgrow="NEVER" />
-                                             </children>
-                                             <padding>
-                                                <Insets right="5.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="findPanel2" prefHeight="0.0" prefWidth="647.0">
-                                             <children>
-                                                <ComboBox maxWidth="150.0" minWidth="80.0" prefHeight="25.0" prefWidth="130.0" />
-                                                <ComboBox prefHeight="25.0" prefWidth="94.0" />
-                                                <TextField fx:id="textField_Find2" prefHeight="31.0" prefWidth="182.0" HBox.hgrow="ALWAYS">
-                                                   <HBox.margin>
-                                                      <Insets />
-                                                   </HBox.margin>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                          <SplitPane dividerPositions="0.48014184397163123" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                            <items>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                                   <children>
-                                                      <VBox prefHeight="444.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <children>
-                                                            <TreeView fx:id="treeView2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="447.0" prefWidth="338.0" VBox.vgrow="ALWAYS" />
-                                                            <HBox fx:id="applayBox" alignment="CENTER_RIGHT" maxHeight="33.0" minHeight="33.0" prefHeight="33.0" prefWidth="337.0" VBox.vgrow="NEVER">
-                                                               <children>
-                                                                  <Button fx:id="applaySave" mnemonicParsing="false" onAction="#applaySaveChange" text="Applay" />
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets right="10.0" />
-                                                               </padding>
-                                                            </HBox>
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                              <AnchorPane maxWidth="366.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="366.0">
-                                                   <children>
-                                                      <VBox fx:id="dividePanel" layoutX="147.0" layoutY="37.0" prefHeight="447.0" prefWidth="366.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <children>
-                                                            <HBox maxHeight="23.0" maxWidth="1.7976931348623157E308" minHeight="23.0" prefHeight="23.0" prefWidth="200.0" VBox.vgrow="NEVER">
-                                                               <children>
-                                                                  <Label>
-                                                                     <padding>
-                                                                        <Insets top="5.0" />
-                                                                     </padding>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS">
-                                                                     <padding>
-                                                                        <Insets right="5.0" />
-                                                                     </padding>
-                                                                     <HBox.margin>
-                                                                        <Insets />
-                                                                     </HBox.margin>
-                                                                     <children>
-                                                                        <Label text="free:" />
-                                                                        <Label style="-fx-border-color: #adadad; -fx-border-width: 1;" />
-                                                                     </children>
-                                                                  </HBox>
-                                                               </children>
-                                                            </HBox>
-                                                            <Separator prefWidth="200.0">
-                                                               <padding>
-                                                                  <Insets top="5.0" />
-                                                               </padding></Separator>
-                                                            <Label text="Avaliable adresses:">
-                                                               <font>
-                                                                  <Font size="13.0" />
-                                                               </font>
+                    <Separator prefWidth="200.0"/>
+                    <TreeView fx:id="treeView" maxHeight="1.7976931348623157E308"
+                              maxWidth="1.7976931348623157E308" showRoot="false"
+                              style="-fx-background-color: azure;" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="684.0"
+                           prefWidth="707.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0"
+                                prefWidth="160.0">
+                        <VBox prefHeight="338.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="0.0">
+                            <Label text="Free networks:">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                                <padding>
+                                    <Insets left="5.0"/>
+                                </padding>
+                                <VBox.margin>
+                                    <Insets/>
+                                </VBox.margin>
+                            </Label>
+                            <ListView fx:id="listViewFreeNet" maxHeight="-Infinity"
+                                      maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                                      prefHeight="150.0" prefWidth="200.0"/>
+                            <Separator prefWidth="200.0"/>
+                        </VBox>
+                    </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                        <VBox prefHeight="338.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="0.0">
+                            <HBox fx:id="editPanel2" alignment="CENTER" maxHeight="40.0"
+                                  minHeight="40.0" prefHeight="100.0" prefWidth="40.0"
+                                  spacing="5.0">
+                                <padding>
+                                    <Insets right="5.0"/>
+                                </padding>
+                                <TextField editable="false"
+                                           maxWidth="1.7976931348623157E308"
+                                           minWidth="120.0" prefWidth="120.0"
+                                           HBox.hgrow="NEVER"/>
+                                <TextField editable="false" maxWidth="50.0" minWidth="50.0"
+                                           prefWidth="50.0"/>
+                                <TextField editable="false" maxWidth="50.0" minWidth="50.0"
+                                           prefWidth="50.0"/>
+                                <ComboBox maxWidth="60.0" minWidth="40.0" prefHeight="25.0"
+                                          prefWidth="60.0"/>
+                                <ComboBox prefHeight="25.0" prefWidth="60.0"/>
+                                <TextField maxWidth="1.7976931348623157E308"
+                                           minWidth="100.0" prefWidth="100.0"
+                                           HBox.hgrow="ALWAYS"/>
+                                <TextField maxWidth="1.7976931348623157E308" minWidth="60.0"
+                                           prefWidth="60.0" HBox.hgrow="ALWAYS"/>
+                                <DatePicker maxWidth="120.0" minWidth="120.0"
+                                            prefWidth="120.0" HBox.hgrow="NEVER"/>
+                                <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                                <Button maxHeight="25.0" maxWidth="25.0" minHeight="25.0"
+                                        minWidth="25.0" mnemonicParsing="false"
+                                        prefHeight="25.0" prefWidth="25.0"
+                                        HBox.hgrow="NEVER"/>
+                            </HBox>
+                            <HBox fx:id="findPanel2" prefHeight="0.0" prefWidth="647.0">
+                                <ComboBox maxWidth="150.0" minWidth="80.0" prefHeight="25.0"
+                                          prefWidth="130.0"/>
+                                <ComboBox prefHeight="25.0" prefWidth="94.0"/>
+                                <TextField fx:id="textField_Find2" prefHeight="31.0"
+                                           prefWidth="182.0" HBox.hgrow="ALWAYS">
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                </TextField>
+                            </HBox>
+                            <SplitPane dividerPositions="0.48014184397163123" prefHeight="160.0"
+                                       prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                <items>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0"
+                                                prefHeight="160.0" prefWidth="100.0">
+                                        <children>
+                                            <VBox prefHeight="444.0" prefWidth="337.0"
+                                                  AnchorPane.bottomAnchor="0.0"
+                                                  AnchorPane.leftAnchor="0.0"
+                                                  AnchorPane.rightAnchor="0.0"
+                                                  AnchorPane.topAnchor="0.0">
+                                                <children>
+                                                    <TreeView fx:id="treeView2"
+                                                              maxHeight="1.7976931348623157E308"
+                                                              maxWidth="1.7976931348623157E308"
+                                                              prefHeight="447.0"
+                                                              prefWidth="338.0"
+                                                              VBox.vgrow="ALWAYS"/>
+                                                    <HBox fx:id="applayBox"
+                                                          alignment="CENTER_RIGHT"
+                                                          maxHeight="33.0" minHeight="33.0"
+                                                          prefHeight="33.0" prefWidth="337.0"
+                                                          VBox.vgrow="NEVER">
+                                                        <children>
+                                                            <Button fx:id="applaySave"
+                                                                    mnemonicParsing="false"
+                                                                    onAction="#applaySaveChange"
+                                                                    text="Applay"/>
+                                                        </children>
+                                                        <padding>
+                                                            <Insets right="10.0"/>
+                                                        </padding>
+                                                    </HBox>
+                                                </children>
+                                            </VBox>
+                                        </children>
+                                    </AnchorPane>
+                                    <AnchorPane maxWidth="366.0" minHeight="0.0" minWidth="0.0"
+                                                prefHeight="160.0" prefWidth="366.0">
+                                        <children>
+                                            <VBox fx:id="dividePanel" layoutX="147.0"
+                                                  layoutY="37.0" prefHeight="447.0"
+                                                  prefWidth="366.0"
+                                                  AnchorPane.bottomAnchor="0.0"
+                                                  AnchorPane.leftAnchor="0.0"
+                                                  AnchorPane.rightAnchor="0.0"
+                                                  AnchorPane.topAnchor="0.0">
+                                                <children>
+                                                    <HBox maxHeight="23.0"
+                                                          maxWidth="1.7976931348623157E308"
+                                                          minHeight="23.0" prefHeight="23.0"
+                                                          prefWidth="200.0" VBox.vgrow="NEVER">
+                                                        <children>
+                                                            <Label>
+                                                                <padding>
+                                                                    <Insets top="5.0"/>
+                                                                </padding>
                                                             </Label>
-                                                            <ListView maxHeight="80.0" minHeight="80.0" prefHeight="80.0" prefWidth="366.0" />
-                                                            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="282.0" prefWidth="366.0" VBox.vgrow="ALWAYS">
-                                                               <children>
-                                                                  <Label text="Divide by:">
-                                                                     <font>
-                                                                        <Font size="13.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER_LEFT" maxHeight="30.0" prefHeight="30.0" prefWidth="366.0" VBox.vgrow="NEVER">
-                                                                     <children>
-                                                                        <Label minWidth="40.0" text="Size:" HBox.hgrow="NEVER" />
-                                                                        <TextField maxHeight="25.0" maxWidth="1.7976931348623157E308" minHeight="25.0" minWidth="40.0" prefHeight="25.0" HBox.hgrow="NEVER" />
-                                                                        <Label minWidth="50.0" text=" , count:" HBox.hgrow="NEVER" />
-                                                                        <ComboBox editable="true" minWidth="64.0" prefHeight="23.0" prefWidth="64.0" />
-                                                                     </children>
-                                                                     <padding>
-                                                                        <Insets left="20.0" />
-                                                                     </padding>
-                                                                  </HBox>
-                                                                  <CheckBox mnemonicParsing="false" selected="true" text="round off">
-                                                                     <VBox.margin>
-                                                                        <Insets left="20.0" />
-                                                                     </VBox.margin>
-                                                                  </CheckBox>
-                                                                  <Separator prefWidth="200.0">
-                                                                     <VBox.margin>
-                                                                        <Insets top="5.0" />
-                                                                     </VBox.margin>
-                                                                  </Separator>
-                                                                  <GridPane prefHeight="134.0" prefWidth="360.0" VBox.vgrow="ALWAYS">
-                                                                    <columnConstraints>
-                                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" />
-                                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.0" minWidth="10.0" prefWidth="228.0" />
-                                                                    </columnConstraints>
-                                                                    <rowConstraints>
-                                                                      <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                                      <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                                      <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                    </rowConstraints>
-                                                                     <children>
-                                                                        <Label text="Status:" />
-                                                                        <Label text="Priority:" GridPane.rowIndex="1" />
-                                                                        <Label text="Client:" GridPane.rowIndex="2" />
-                                                                        <Label text="Type of connection:" GridPane.rowIndex="3" />
-                                                                        <Label text="Date:" GridPane.rowIndex="4" />
-                                                                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
-                                                                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                                     </children>
-                                                                  </GridPane>
-                                                               </children>
-                                                            </VBox>
-                                                            <Separator prefWidth="200.0" />
-                                                            <VBox alignment="CENTER_RIGHT" maxHeight="33.0" maxWidth="1.7976931348623157E308" minHeight="33.0" prefHeight="33.0" prefWidth="366.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" text="Applay" />
-                                                               </children>
-                                                               <VBox.margin>
-                                                                  <Insets />
-                                                               </VBox.margin>
-                                                               <padding>
-                                                                  <Insets right="10.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets left="5.0" />
-                                                         </padding>
-                                                         <opaqueInsets>
-                                                            <Insets />
-                                                         </opaqueInsets>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                            </items>
-                                          </SplitPane>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                     </AnchorPane>
-                 </items>
-              </SplitPane>
-            <VBox maxHeight="20.0" minHeight="20.0" prefHeight="20.0" prefWidth="100.0" />
-          </children>
-       </VBox>
-   </children>
+                                                            <HBox alignment="CENTER_RIGHT"
+                                                                  prefHeight="100.0"
+                                                                  prefWidth="200.0"
+                                                                  visible="false"
+                                                                  HBox.hgrow="ALWAYS">
+                                                                <padding>
+                                                                    <Insets right="5.0"/>
+                                                                </padding>
+                                                                <HBox.margin>
+                                                                    <Insets/>
+                                                                </HBox.margin>
+                                                                <children>
+                                                                    <Label text="free:"/>
+                                                                    <Label style="-fx-border-color: #adadad; -fx-border-width: 1;"/>
+                                                                </children>
+                                                            </HBox>
+                                                        </children>
+                                                    </HBox>
+                                                    <Separator prefWidth="200.0">
+                                                        <padding>
+                                                            <Insets top="5.0"/>
+                                                        </padding>
+                                                    </Separator>
+                                                    <Label text="Avaliable adresses:">
+                                                        <font>
+                                                            <Font size="13.0"/>
+                                                        </font>
+                                                    </Label>
+                                                    <ListView maxHeight="80.0" minHeight="80.0"
+                                                              prefHeight="80.0"
+                                                              prefWidth="366.0"/>
+                                                    <VBox maxHeight="1.7976931348623157E308"
+                                                          maxWidth="1.7976931348623157E308"
+                                                          prefHeight="282.0" prefWidth="366.0"
+                                                          VBox.vgrow="ALWAYS">
+                                                        <children>
+                                                            <Label text="Divide by:">
+                                                                <font>
+                                                                    <Font size="13.0"/>
+                                                                </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER_LEFT"
+                                                                  maxHeight="30.0"
+                                                                  prefHeight="30.0"
+                                                                  prefWidth="366.0"
+                                                                  VBox.vgrow="NEVER">
+                                                                <children>
+                                                                    <Label minWidth="40.0"
+                                                                           text="Size:"
+                                                                           HBox.hgrow="NEVER"/>
+                                                                    <TextField maxHeight="25.0"
+                                                                               maxWidth="1.7976931348623157E308"
+                                                                               minHeight="25.0"
+                                                                               minWidth="40.0"
+                                                                               prefHeight="25.0"
+                                                                               HBox.hgrow="NEVER"/>
+                                                                    <Label minWidth="50.0"
+                                                                           text=" , count:"
+                                                                           HBox.hgrow="NEVER"/>
+                                                                    <ComboBox editable="true"
+                                                                              minWidth="64.0"
+                                                                              prefHeight="23.0"
+                                                                              prefWidth="64.0"/>
+                                                                </children>
+                                                                <padding>
+                                                                    <Insets left="20.0"/>
+                                                                </padding>
+                                                            </HBox>
+                                                            <CheckBox mnemonicParsing="false"
+                                                                      selected="true"
+                                                                      text="round off">
+                                                                <VBox.margin>
+                                                                    <Insets left="20.0"/>
+                                                                </VBox.margin>
+                                                            </CheckBox>
+                                                            <Separator prefWidth="200.0">
+                                                                <VBox.margin>
+                                                                    <Insets top="5.0"/>
+                                                                </VBox.margin>
+                                                            </Separator>
+                                                            <GridPane prefHeight="134.0"
+                                                                      prefWidth="360.0"
+                                                                      VBox.vgrow="ALWAYS">
+                                                                <columnConstraints>
+                                                                    <ColumnConstraints
+                                                                            hgrow="SOMETIMES"
+                                                                            maxWidth="110.0"
+                                                                            minWidth="110.0"
+                                                                            prefWidth="110.0"/>
+                                                                    <ColumnConstraints
+                                                                            hgrow="SOMETIMES"
+                                                                            maxWidth="276.0"
+                                                                            minWidth="10.0"
+                                                                            prefWidth="228.0"/>
+                                                                </columnConstraints>
+                                                                <rowConstraints>
+                                                                    <RowConstraints
+                                                                            maxHeight="35.0"
+                                                                            minHeight="35.0"
+                                                                            prefHeight="30.0"
+                                                                            vgrow="ALWAYS"/>
+                                                                    <RowConstraints
+                                                                            maxHeight="35.0"
+                                                                            minHeight="35.0"
+                                                                            prefHeight="30.0"
+                                                                            vgrow="ALWAYS"/>
+                                                                    <RowConstraints
+                                                                            maxHeight="35.0"
+                                                                            minHeight="35.0"
+                                                                            prefHeight="30.0"
+                                                                            vgrow="ALWAYS"/>
+                                                                    <RowConstraints
+                                                                            maxHeight="35.0"
+                                                                            minHeight="35.0"
+                                                                            prefHeight="30.0"
+                                                                            vgrow="ALWAYS"/>
+                                                                    <RowConstraints
+                                                                            maxHeight="35.0"
+                                                                            minHeight="35.0"
+                                                                            prefHeight="30.0"
+                                                                            vgrow="ALWAYS"/>
+                                                                    <RowConstraints
+                                                                            minHeight="10.0"
+                                                                            prefHeight="30.0"
+                                                                            vgrow="SOMETIMES"/>
+                                                                </rowConstraints>
+                                                                <children>
+                                                                    <Label text="Status:"/>
+                                                                    <Label text="Priority:"
+                                                                           GridPane.rowIndex="1"/>
+                                                                    <Label text="Client:"
+                                                                           GridPane.rowIndex="2"/>
+                                                                    <Label text="Type of connection:"
+                                                                           GridPane.rowIndex="3"/>
+                                                                    <Label text="Date:"
+                                                                           GridPane.rowIndex="4"/>
+                                                                    <ComboBox prefWidth="150.0"
+                                                                              GridPane.columnIndex="1"/>
+                                                                    <ComboBox prefWidth="150.0"
+                                                                              GridPane.columnIndex="1"
+                                                                              GridPane.rowIndex="1"/>
+                                                                    <TextField
+                                                                            GridPane.columnIndex="1"
+                                                                            GridPane.rowIndex="2"/>
+                                                                    <TextField
+                                                                            GridPane.columnIndex="1"
+                                                                            GridPane.rowIndex="3"/>
+                                                                    <DatePicker
+                                                                            GridPane.columnIndex="1"
+                                                                            GridPane.rowIndex="4"/>
+                                                                </children>
+                                                            </GridPane>
+                                                        </children>
+                                                    </VBox>
+                                                    <Separator prefWidth="200.0"/>
+                                                    <VBox alignment="CENTER_RIGHT"
+                                                          maxHeight="33.0"
+                                                          maxWidth="1.7976931348623157E308"
+                                                          minHeight="33.0" prefHeight="33.0"
+                                                          prefWidth="366.0">
+                                                        <children>
+                                                            <Button mnemonicParsing="false"
+                                                                    text="Applay"/>
+                                                        </children>
+                                                        <VBox.margin>
+                                                            <Insets/>
+                                                        </VBox.margin>
+                                                        <padding>
+                                                            <Insets right="10.0"/>
+                                                        </padding>
+                                                    </VBox>
+                                                </children>
+                                                <padding>
+                                                    <Insets left="5.0"/>
+                                                </padding>
+                                                <opaqueInsets>
+                                                    <Insets/>
+                                                </opaqueInsets>
+                                            </VBox>
+                                        </children>
+                                    </AnchorPane>
+                                </items>
+                            </SplitPane>
+                        </VBox>
+                    </AnchorPane>
+                </SplitPane>
+            </AnchorPane>
+        </SplitPane>
+        <VBox maxHeight="20.0" minHeight="20.0" prefHeight="20.0" prefWidth="100.0"/>
+    </VBox>
 </AnchorPane>

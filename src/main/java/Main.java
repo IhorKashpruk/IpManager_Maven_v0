@@ -1,5 +1,3 @@
-import Logic.Net.IP;
-import Logic.Net.Network;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

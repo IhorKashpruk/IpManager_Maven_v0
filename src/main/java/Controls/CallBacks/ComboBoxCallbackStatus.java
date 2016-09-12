@@ -2,7 +2,6 @@ package Controls.CallBacks;
 
 
 import Logic.Net.STATUS;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -28,8 +27,8 @@ public class ComboBoxCallbackStatus implements Callback<ListView<STATUS>, ListCe
                 if (item == null || empty) {
                     setGraphic(null);
                 } else {
-                    String url = item == STATUS.BUSY_NETWORK ? "icons/close_network.png" : item == STATUS.FREE_NETWORK ?
-                            "icons/open_network.png" : "icons/network.png";
+                    String url = item == STATUS.BUSY_NETWORK ? "Icons/close_network.png" : item == STATUS.FREE_NETWORK ?
+                            "Icons/open_network.png" : "Icons/network.png";
                     rectangle.setImage(new Image(url));
                     setGraphic(rectangle);
                     setText(item.toString());

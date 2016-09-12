@@ -32,9 +32,9 @@ public class EditNetworkPanel {
         ComboBox<ImageView> comboBoxStatus = (ComboBox<ImageView>)mainBox.getChildren().get(3);
         comboBoxStatus.getItems().clear();
         comboBoxStatus.setItems(FXCollections.observableArrayList(
-                new ImageView(new Image("icons/close_network.png")),
-                new ImageView(new Image("icons/open_network.png")),
-                new ImageView(new Image("icons/network.png"))));
+                new ImageView(new Image("Icons/close_network.png")),
+                new ImageView(new Image("Icons/open_network.png")),
+                new ImageView(new Image("Icons/network.png"))));
         comboBoxStatus.setCellFactory(new ComboBoxCallbackStatus_v2());
 
         ComboBox<String> comboBoxPriority = (ComboBox<String>)mainBox.getChildren().get(4);
@@ -65,7 +65,7 @@ public class EditNetworkPanel {
         };
         ((DatePicker)mainBox.getChildren().get(7)).setConverter(converter);
         Button saveButton = ((Button)mainBox.getChildren().get(9));
-        saveButton.setGraphic(new ImageView(new Image("icons/save.png")));
+        saveButton.setGraphic(new ImageView(new Image("Icons/save.png")));
         saveButton.setOnAction(event -> {
             if(currentTreeItem == null)
                 return;

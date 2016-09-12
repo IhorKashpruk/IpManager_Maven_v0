@@ -70,7 +70,7 @@ public class MargeNetworkDialog {
         for (TreeItem<Network> item1 : observableList){
             list.add(item1.getValue());
         }
-        Collections.sort(list, (o1, o2) -> o1.comparatorForSort(o2));
+        Collections.sort(list, Network::comparatorForSort);
 
         ListView<Network> leftNetworks = new ListView<>();
         leftNetworks.setStyle("-fx-border-color: #5c5c5c;");
@@ -114,9 +114,9 @@ public class MargeNetworkDialog {
         ComboBox<ImageView> labelStatus = new ComboBox<>();
         labelStatus.setMaxWidth(50);
         labelStatus.getItems().addAll(
-                new ImageView(new Image("icons/open_network.png")),
-                new ImageView(new Image("icons/close_network.png")),
-                new ImageView(new Image("icons/network.png"))
+                new ImageView(new Image("Icons/open_network.png")),
+                new ImageView(new Image("Icons/close_network.png")),
+                new ImageView(new Image("Icons/network.png"))
         );
         labelStatus.setCellFactory(new ComboBoxCallbackStatus_v2());
         labelStatus.getSelectionModel().select(0);

@@ -2,7 +2,6 @@ package Controls.TreeViewPanel;
 
 import Controls.TreeViewManager;
 import Logic.Net.Network;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -12,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 
 /**
  * Created by Игорь on 23.08.2016.
@@ -41,10 +39,10 @@ public class PathPanel {
             pane.setPrefHeight(26);
             pane.setAlignment(Pos.CENTER);
 
-            pane.getChildren().add(new Label(treeItem.getValue().getIp().getIp(), new ImageView(new Image("icons/network.png"))));
+            pane.getChildren().add(new Label(treeItem.getValue().getIp().getIp(), new ImageView(new Image("Icons/network.png"))));
             pane.getChildren().add(new Separator(Orientation.VERTICAL));
             pane.getChildren().add(new Label(treeItem.getValue().getMaskString()));
-            pane.getChildren().add(new ImageView(new Image("icons/right-arrow.png")));
+            pane.getChildren().add(new ImageView(new Image("Icons/right-arrow.png")));
             pane.hoverProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue)
                     pane.setStyle("-fx-background-color: white;");

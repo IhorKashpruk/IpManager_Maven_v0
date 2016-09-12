@@ -1,7 +1,6 @@
 package Controls.TreeViewPanel;
 
 import Controls.CallBacks.ComboBoxCallbackStatus;
-import Controls.CallBacks.ListViewCallback;
 import Controls.MyLittleAlert;
 import Controls.TreeViewManager;
 import Logic.MyMath;
@@ -16,9 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
-import sun.nio.ch.Net;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -151,7 +148,7 @@ public class DividePanel {
             }
 
             count = countDivide;
-            List<Network> networks = new ArrayList<Network>();
+            List<Network> networks = new ArrayList<>();
 
             try {
             for(Network network: freeSpaces){
@@ -190,7 +187,7 @@ public class DividePanel {
                 viewManager.getData().add(network);
             }
             viewManager.upload();
-
+            setNetwork(lastItem);
         });
 
     }
@@ -198,7 +195,7 @@ public class DividePanel {
     public void setNetwork(TreeItem<Network> item){
         lastItem = item;
         Label label = (Label) ((HBox) mainBox.getChildren().get(0)).getChildren().get(0);
-        String url = item.getValue().getStatus() == STATUS.HOME_NETWORK ? "icons/network.png" : item.getValue().getStatus() == STATUS.FREE_NETWORK ? "icons/open_network.png" : "icons/close_network.png";
+        String url = item.getValue().getStatus() == STATUS.HOME_NETWORK ? "Icons/network.png" : item.getValue().getStatus() == STATUS.FREE_NETWORK ? "Icons/open_network.png" : "Icons/close_network.png";
 
         label.setGraphic(new ImageView(new Image(url)));
         label.setText(item.getValue().getIp().getIp() + "\t["+item.getValue().getMask()+"]\t{"+item.getValue().getSizeString()+"}");

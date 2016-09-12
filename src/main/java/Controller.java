@@ -87,12 +87,13 @@ public class Controller {
                     updateMainTree();
             }
             try {
-                viewManager2.setRootNode(new TreeItem<Network>(new Network(newValue)));
+                viewManager2.setRootNode(new TreeItem<>(new Network(newValue)));
                 currentSelectNetwork = newValue;
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            viewManager2.setData(new ArrayList<Network>());
+            viewManager2.setData(new ArrayList<>());
+            viewManager2.getFindPanel().setRealData(viewManager2.getData());
         });
 
         TreeItem<Network> rootNode = null;
@@ -189,6 +190,7 @@ public class Controller {
         CSVManager csvManager = new CSVManager(path, ';');
         try {
             csvManager.writeData(viewManager.getData());
+            new MyLittleAlert(Alert.AlertType.INFORMATION, "Save file as...", "Save complited succesfully.","").showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -198,7 +200,7 @@ public class Controller {
     @FXML
     public void saveFileAs(ActionEvent actionEvent){
         if(viewManager.getData() == null){
-            new MyLittleAlert(Alert.AlertType.INFORMATION, "Save file...", "You have nothing to save.", "").showAndWait();
+            new MyLittleAlert(Alert.AlertType.INFORMATION, "Save file as...", "You have nothing to save.", "").showAndWait();
             return;
         }
         if(viewManager.getFindPanel().getStatus() != STATUS.HOME_NETWORK){
@@ -215,6 +217,8 @@ public class Controller {
             CSVManager csvManager = new CSVManager(selectedFile.getPath(), ';');
             try {
                 csvManager.writeData(viewManager.getData());
+
+                new MyLittleAlert(Alert.AlertType.INFORMATION, "Save file as...", "Save complited succesfully.","").showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -137,7 +137,7 @@ public class TreeViewManager {
         });
 
         addHomeSiec.setOnAction(event -> {
-            TreeItem<Network> siec = (TreeItem<Network>) treeView.getSelectionModel().getSelectedItem();
+            TreeItem<Network> siec = treeView.getSelectionModel().getSelectedItem();
             if(siec != null){
                 new AddNetworkDialog(siec, this, STATUS.HOME_NETWORK).show();
             }else
@@ -145,7 +145,7 @@ public class TreeViewManager {
             updateFreeNetworks();
         });
         addFreeSiec.setOnAction(event -> {
-            TreeItem<Network> siec = (TreeItem<Network>) treeView.getSelectionModel().getSelectedItem();
+            TreeItem<Network> siec = treeView.getSelectionModel().getSelectedItem();
             if(siec != null){
                 new AddNetworkDialog(siec, this, STATUS.FREE_NETWORK).show();
             }else
@@ -153,7 +153,7 @@ public class TreeViewManager {
             updateFreeNetworks();
         });
         addBusySiec.setOnAction(event -> {
-            TreeItem<Network> siec = (TreeItem<Network>) treeView.getSelectionModel().getSelectedItem();
+            TreeItem<Network> siec = treeView.getSelectionModel().getSelectedItem();
             if(siec != null){
                 new AddNetworkDialog(siec, this, STATUS.BUSY_NETWORK).show();
             }else
@@ -221,7 +221,7 @@ public class TreeViewManager {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if(!ip.equals(network2.getIp())){
+                if(!(ip != null && ip.equals(network2.getIp()))){
                     new MyLittleAlert(Alert.AlertType.WARNING, "Waring", "There is a space or other network between networks", "").showAndWait();
                     return;
                 }
@@ -491,9 +491,9 @@ public class TreeViewManager {
             icon.setCellFactory(new ComboBoxCallbackStatus_v2());
             icon.setMaxWidth(35);
             icon.setItems(FXCollections.observableArrayList(
-                    new ImageView(new Image("icons/close_network.png")),
-                    new ImageView(new Image("icons/open_network.png")),
-                    new ImageView(new Image("icons/network.png"))));
+                    new ImageView(new Image("Icons/close_network.png")),
+                    new ImageView(new Image("Icons/open_network.png")),
+                    new ImageView(new Image("Icons/network.png"))));
             icon.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
                 if(!Objects.equals(oldValue, newValue) && oldValue.intValue() == 2 && getTreeItem().getChildren().size() > 0){
 //                    Optional<ButtonType> result = new MyLittleAlert(Alert.AlertType.CONFIRMATION, "Attention",
